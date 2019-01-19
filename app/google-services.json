@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "391516511143",
+    "firebase_url": "https://kalamitysparta.firebaseio.com",
+    "project_id": "kalamitysparta",
+    "storage_bucket": "kalamitysparta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391516511143:android:4e3a5e6d15fa39d4",
+        "android_client_info": {
+          "package_name": "com.nicster34.kalamity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "391516511143-rchl6q1k6tuf29glcrsh99v41jdr88ep.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nicster34.kalamity",
+            "certificate_hash": "59768fe87a6f5870e4f2841d3e44823ff8a7529c"
+          }
+        },
+        {
+          "client_id": "391516511143-jeniknlkkes1sonepsujgggdoe9vhuhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMBdvS36dIJmAPTAUngi3GXd3r67Oe7ls"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "391516511143-jeniknlkkes1sonepsujgggdoe9vhuhg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

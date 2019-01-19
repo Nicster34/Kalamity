@@ -1,10 +1,19 @@
 package com.nicster34.kalamity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -218,10 +227,53 @@ public class FullscreenActivity extends AppCompatActivity implements OnMapReadyC
                     }
                 });
 
+        final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        LocationListener locationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                // Called when a new location is found by the network location provider.
+                //makeUseOfNewLocation(location);
+            }
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(37.56, 126.9);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+
+            public void onProviderEnabled(String provider) {
+            }
+
+            public void onProviderDisabled(String provider) {
+            }
+        };
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, locationListener);
+        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        Location myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        final LatLng MyLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+        mMap.addMarker(new MarkerOptions().position(MyLocation).title("Marker at your last recorded location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(MyLocation));
+        new CountDownTimer(10000, 1000) {
+            public void onTick(long a) {
+            }
+
+            public void onFinish() {
+                float zoomLevel = 10.0f; //This goes up to 21
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(MyLocation, zoomLevel));
+            }
+        }.start();
+
+    }
+
+    public void previous(View view) {
+        startActivity(new Intent(FullscreenActivity.this, MainActivity.class));
     }
 }

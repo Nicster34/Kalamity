@@ -104,4 +104,8 @@ public class AddMarker extends AppCompatActivity {
         */
     }
 
+    public void previous(View view) {
+        startActivity(new Intent(AddMarker.this, MainActivity.class));
+    }
+
 }

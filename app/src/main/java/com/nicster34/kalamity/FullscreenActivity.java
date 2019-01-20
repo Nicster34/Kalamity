@@ -24,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -218,7 +219,7 @@ public class FullscreenActivity extends AppCompatActivity implements OnMapReadyC
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 GeoPoint docPoint = (GeoPoint) document.getData().get("place");
                                 LatLng docLL = new LatLng(docPoint.getLatitude(), docPoint.getLongitude());
-                                mMap.addMarker(new MarkerOptions().position(docLL).title("Mark"));
+                                mMap.addMarker(new MarkerOptions().position(docLL).title("Mark").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                                 Log.d("document", document.getId() + " => " + document.getData());
                             }
                         } else {
@@ -235,7 +236,7 @@ public class FullscreenActivity extends AppCompatActivity implements OnMapReadyC
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 GeoPoint docPoint = (GeoPoint) document.getData().get("place");
                                 LatLng docLL = new LatLng(docPoint.getLatitude(), docPoint.getLongitude());
-                                mMap.addMarker(new MarkerOptions().position(docLL).title("Jane"));
+                                mMap.addMarker(new MarkerOptions().position(docLL).title("Jane").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                                 Log.d("document", document.getId() + " => " + document.getData());
                             }
                         } else {
@@ -252,7 +253,7 @@ public class FullscreenActivity extends AppCompatActivity implements OnMapReadyC
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 GeoPoint docPoint = (GeoPoint) document.getData().get("place");
                                 LatLng docLL = new LatLng(docPoint.getLatitude(), docPoint.getLongitude());
-                                mMap.addMarker(new MarkerOptions().position(docLL).title("Luke"));
+                                mMap.addMarker(new MarkerOptions().position(docLL).title("Luke").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                                 Log.d("document", document.getId() + " => " + document.getData());
                             }
                         } else {
@@ -260,23 +261,7 @@ public class FullscreenActivity extends AppCompatActivity implements OnMapReadyC
                         }
                     }
                 });
-        db.collection("Users").document("0001").collection("Locations")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                GeoPoint docPoint = (GeoPoint) document.getData().get("place");
-                                LatLng docLL = new LatLng(docPoint.getLatitude(), docPoint.getLongitude());
-                                mMap.addMarker(new MarkerOptions().position(docLL).title("Mark"));
-                                Log.d("document", document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            //Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
+
         db.collection("Warnings").document("Fires").collection("Locations")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -286,7 +271,7 @@ public class FullscreenActivity extends AppCompatActivity implements OnMapReadyC
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 GeoPoint docPoint = (GeoPoint) document.getData().get("place");
                                 LatLng docLL = new LatLng(docPoint.getLatitude(), docPoint.getLongitude());
-                                mMap.addMarker(new MarkerOptions().position(docLL).title("Accidents"));
+                                mMap.addMarker(new MarkerOptions().position(docLL).title("Accidents").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                                 Log.d("document", document.getId() + " => " + document.getData());
                             }
                         } else {
@@ -303,7 +288,7 @@ public class FullscreenActivity extends AppCompatActivity implements OnMapReadyC
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 GeoPoint docPoint = (GeoPoint) document.getData().get("place");
                                 LatLng docLL = new LatLng(docPoint.getLatitude(), docPoint.getLongitude());
-                                mMap.addMarker(new MarkerOptions().position(docLL).title("Bridges"));
+                                mMap.addMarker(new MarkerOptions().position(docLL).title("Bridges").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                                 Log.d("document", document.getId() + " => " + document.getData());
                             }
                         } else {
@@ -320,7 +305,7 @@ public class FullscreenActivity extends AppCompatActivity implements OnMapReadyC
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 GeoPoint docPoint = (GeoPoint) document.getData().get("place");
                                 LatLng docLL = new LatLng(docPoint.getLatitude(), docPoint.getLongitude());
-                                mMap.addMarker(new MarkerOptions().position(docLL).title(document.getId()));
+                                mMap.addMarker(new MarkerOptions().position(docLL).title(document.getId()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                                 Log.d("document", document.getId() + " => " + document.getData());
                             }
                         } else {
@@ -359,7 +344,7 @@ public class FullscreenActivity extends AppCompatActivity implements OnMapReadyC
         //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         Location myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-        final LatLng MyLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+        final LatLng MyLocation = new LatLng(29.9508, -90.081);
         //mMap.addMarker(new MarkerOptions().position(MyLocation).title("Marker at your last recorded location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(MyLocation));
         new CountDownTimer(2000, 1000) {
@@ -367,7 +352,7 @@ public class FullscreenActivity extends AppCompatActivity implements OnMapReadyC
             }
 
             public void onFinish() {
-                float zoomLevel = 10.0f; //This goes up to 21
+                float zoomLevel = 11.0f; //This goes up to 21
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(MyLocation, zoomLevel));
             }
         }.start();

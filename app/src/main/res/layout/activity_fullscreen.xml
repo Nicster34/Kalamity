@@ -31,7 +31,7 @@
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:onClick="previous"
-        app:backgroundTint="@color/common_google_signin_btn_text_light_disabled"
+        app:backgroundTint="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_revert" />

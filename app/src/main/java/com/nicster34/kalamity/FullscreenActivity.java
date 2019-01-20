@@ -208,7 +208,110 @@ public class FullscreenActivity extends AppCompatActivity implements OnMapReadyC
             Log.e("main", "Can't find style. Error: ", e);
         }
 
-        db.collection("Locations")
+
+        db.collection("Users").document("0001").collection("Locations")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                GeoPoint docPoint = (GeoPoint) document.getData().get("place");
+                                LatLng docLL = new LatLng(docPoint.getLatitude(), docPoint.getLongitude());
+                                mMap.addMarker(new MarkerOptions().position(docLL).title("Mark"));
+                                Log.d("document", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            //Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        db.collection("Users").document("0002").collection("Locations")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                GeoPoint docPoint = (GeoPoint) document.getData().get("place");
+                                LatLng docLL = new LatLng(docPoint.getLatitude(), docPoint.getLongitude());
+                                mMap.addMarker(new MarkerOptions().position(docLL).title("Jane"));
+                                Log.d("document", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            //Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        db.collection("Users").document("0003").collection("Locations")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                GeoPoint docPoint = (GeoPoint) document.getData().get("place");
+                                LatLng docLL = new LatLng(docPoint.getLatitude(), docPoint.getLongitude());
+                                mMap.addMarker(new MarkerOptions().position(docLL).title("Luke"));
+                                Log.d("document", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            //Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        db.collection("Users").document("0001").collection("Locations")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                GeoPoint docPoint = (GeoPoint) document.getData().get("place");
+                                LatLng docLL = new LatLng(docPoint.getLatitude(), docPoint.getLongitude());
+                                mMap.addMarker(new MarkerOptions().position(docLL).title("Mark"));
+                                Log.d("document", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            //Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        db.collection("Warnings").document("Fires").collection("Locations")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                GeoPoint docPoint = (GeoPoint) document.getData().get("place");
+                                LatLng docLL = new LatLng(docPoint.getLatitude(), docPoint.getLongitude());
+                                mMap.addMarker(new MarkerOptions().position(docLL).title("Accidents"));
+                                Log.d("document", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            //Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        db.collection("Warnings").document("Bridges").collection("Locations")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                GeoPoint docPoint = (GeoPoint) document.getData().get("place");
+                                LatLng docLL = new LatLng(docPoint.getLatitude(), docPoint.getLongitude());
+                                mMap.addMarker(new MarkerOptions().position(docLL).title("Bridges"));
+                                Log.d("document", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            //Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        db.collection("Events")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -219,14 +322,12 @@ public class FullscreenActivity extends AppCompatActivity implements OnMapReadyC
                                 LatLng docLL = new LatLng(docPoint.getLatitude(), docPoint.getLongitude());
                                 mMap.addMarker(new MarkerOptions().position(docLL).title(document.getId()));
                                 Log.d("document", document.getId() + " => " + document.getData());
-
                             }
                         } else {
                             //Log.w(TAG, "Error getting documents.", task.getException());
                         }
                     }
                 });
-
         final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
@@ -259,9 +360,9 @@ public class FullscreenActivity extends AppCompatActivity implements OnMapReadyC
         Location myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
         final LatLng MyLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(MyLocation).title("Marker at your last recorded location"));
+        //mMap.addMarker(new MarkerOptions().position(MyLocation).title("Marker at your last recorded location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(MyLocation));
-        new CountDownTimer(10000, 1000) {
+        new CountDownTimer(2000, 1000) {
             public void onTick(long a) {
             }
 
@@ -271,9 +372,13 @@ public class FullscreenActivity extends AppCompatActivity implements OnMapReadyC
             }
         }.start();
 
+
     }
 
     public void previous(View view) {
         startActivity(new Intent(FullscreenActivity.this, MainActivity.class));
     }
+
+
 }
+
